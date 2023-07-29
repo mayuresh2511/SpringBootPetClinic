@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:1
 
 FROM eclipse-temurin:17-jdk-jammy as base
-WORKDIR /app
 ARG JAR_FILE=target/*.jar
+WORKDIR /app
 COPY ${JAR_FILE} .app.jar
 EXPOSE 8080
 
