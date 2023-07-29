@@ -2,11 +2,9 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      java: corretto11
     commands:
-      - echo Installing Java 17...
-      - apt-get update && apt-get install -y openjdk-17-jdk
-      - echo Installing Java Maven...
-      - apt-get install -y maven
       - echo Installing AWS CLI...
       - apt-get install -y python3-pip
       - sudo pip3 install awscli
@@ -18,7 +16,9 @@ phases:
   build:
     commands:
       - echo Building the Java project...
-      - mvn clean install package
+      - mvn clean install
+      - pwd
+      - ls
       - echo Building the Docker image...
       - docker build --target development -t my-app .
       - echo Pushing the Docker image...
