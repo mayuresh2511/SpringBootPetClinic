@@ -4,10 +4,6 @@ phases:
   install:
     runtime-versions:
       java: corretto17
-    commands:
-      - echo Installing AWS CLI...
-      - apt-get install -y python3-pip
-      - sudo pip3 install awscli
 
   pre_build:
     commands:
