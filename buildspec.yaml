@@ -18,20 +18,16 @@ phases:
   build:
     commands:
       - echo Building the Java project...
-      - mvn clean install
+      - mvn clean install package
       - echo Building the Docker image...
-      - docker build -t my-app .
+      - docker build --target development -t my-app .
       - echo Pushing the Docker image...
       - docker tag my-app:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$AWS_ECR_REPO_NAME:latest
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$AWS_ECR_REPO_NAME:latest
       # Additional build commands can be added here
 
   post_build:
     commands:
       - echo Running post-build actions...
+      - echo pushing docker image to ECR repo
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$AWS_ECR_REPO_NAME:latest
       # Additional post-build commands can be added here
-
-artifacts:
-  files:
-    - target/awsCICD-0.0.1-SNAPSHOT.jar
-  discard-paths: yes
